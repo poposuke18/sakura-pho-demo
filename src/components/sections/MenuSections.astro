@@ -8,63 +8,64 @@ interface Props {
 const { locale } = Astro.props;
 const tr = t[locale];
 
-const sections = [
+const numerals = ["一", "二", "三", "四", "五", "六", "七", "八"];
+
+const rawSections = [
   {
     category: tr.menu.categories.signature,
-    items: [
-      tr.menu.items.sakuraPho,
-      tr.menu.items.wagyuPho,
-    ],
+    items: [tr.menu.items.sakuraPho, tr.menu.items.wagyuPho],
   },
   {
     category: tr.menu.categories.bun,
-    items: [
-      tr.menu.items.bunCha,
-    ],
+    items: [tr.menu.items.bunCha],
   },
   {
     category: tr.menu.categories.banhMi,
-    items: [
-      tr.menu.items.banhMiSakura,
-    ],
+    items: [tr.menu.items.banhMiSakura],
   },
   {
     category: tr.menu.categories.side,
-    items: [
-      tr.menu.items.goiCuon,
-    ],
+    items: [tr.menu.items.goiCuon],
   },
   {
     category: tr.menu.categories.drink,
-    items: [
-      tr.menu.items.cafeSua,
-    ],
+    items: [tr.menu.items.cafeSua],
   },
 ];
+
+let idx = 0;
+const sections = rawSections.map((s) => ({
+  category: s.category,
+  items: s.items.map((it) => ({ ...it, numeral: numerals[idx++] })),
+}));
+
+const eyebrow =
+  locale === "ja" ? "MENU · お品書き" : locale === "vi" ? "MENU · Thực đơn" : "MENU · Oshinagaki";
 ---
 
-<section class="py-20 px-6">
-  <div class="max-w-3xl mx-auto text-center mb-16">
-    <p class="text-sm tracking-[0.3em] text-gold-deep mb-4">MENU</p>
+<section class="py-24 px-6 bg-ink text-cream">
+  <div class="max-w-3xl mx-auto text-center mb-16" data-reveal>
+    <p class="eyebrow eyebrow-on-dark mb-4">{eyebrow}</p>
     <h1 class="text-4xl md:text-5xl mb-4">{tr.menu.heading}</h1>
-    <p class="brush-divider text-sm text-ink-soft mb-6"></p>
-    <p class="text-base text-ink-soft">{tr.menu.lead}</p>
+    <p class="brush-divider text-sm opacity-60 mb-6"></p>
+    <p class="text-base opacity-75">{tr.menu.lead}</p>
   </div>
 
   <div class="max-w-3xl mx-auto space-y-16">
     {sections.map((section) => (
-      <div>
-        <div class="flex items-baseline gap-4 mb-8 border-b border-gold/30 pb-3">
-          <h2 class="text-2xl text-ink">{section.category}</h2>
+      <div data-reveal>
+        <div class="flex items-baseline gap-4 mb-8 border-b border-gold/40 pb-3">
+          <h2 class="text-2xl">{section.category}</h2>
           <span class="flex-1 border-t border-dotted border-gold/40"></span>
         </div>
 
         <ul class="space-y-7">
           {section.items.map((item) => (
-            <li class="grid grid-cols-[1fr_auto] gap-x-6 gap-y-1.5">
-              <h3 class="text-lg text-ink leading-snug">{item.name}</h3>
-              <span class="text-base text-gold-deep tracking-wider whitespace-nowrap">{item.price}</span>
-              <p class="col-span-2 text-sm text-ink-soft leading-relaxed">{item.desc}</p>
+            <li class="grid grid-cols-[auto_1fr_auto] gap-x-6 gap-y-1.5 items-baseline">
+              <span class="numeral-kanji">{item.numeral}</span>
+              <h3 class="text-lg leading-snug">{item.name}</h3>
+              <span class="font-mono text-xs text-gold-deep tracking-wider whitespace-nowrap tabular">{item.price}</span>
+              <p class="col-start-2 col-span-2 text-sm opacity-70 leading-relaxed">{item.desc}</p>
             </li>
           ))}
         </ul>
@@ -72,5 +73,5 @@ const sections = [
     ))}
   </div>
 
-  <p class="max-w-3xl mx-auto mt-16 text-xs text-ink-soft text-center">{tr.menu.note}</p>
+  <p class="max-w-3xl mx-auto mt-16 text-xs opacity-55 text-center font-mono tracking-widest">{tr.menu.note}</p>
 </section>

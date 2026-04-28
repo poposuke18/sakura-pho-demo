@@ -16,6 +16,31 @@
   --font-sans-jp: "Noto Sans JP", "Yu Gothic", sans-serif;
   --font-sans-vi: "Be Vietnam Pro", "Segoe UI", sans-serif;
   --font-display: "Cormorant Garamond", "Noto Serif JP", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: var(--color-gold-deep);
+  opacity: 0.75;
+}
+.eyebrow-on-dark {
+  color: var(--color-cream-soft);
+  opacity: 0.5;
+}
+.numeral-kanji {
+  font-family: var(--font-serif-jp);
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  color: var(--color-gold-deep);
+  opacity: 0.7;
+}
+.tabular {
+  font-variant-numeric: tabular-nums;
 }
 
 html {

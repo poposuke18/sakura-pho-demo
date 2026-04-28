@@ -7,23 +7,26 @@ interface Props {
 
 const { locale } = Astro.props;
 const tr = t[locale];
+
+const eyebrow =
+  locale === "ja" ? "RESERVATION · ご予約" : locale === "vi" ? "RESERVATION · Đặt bàn" : "RESERVATION";
 ---
 
-<section class="py-20 px-6">
-  <div class="max-w-3xl mx-auto text-center mb-16">
-    <p class="text-sm tracking-[0.3em] text-gold-deep mb-4">CONTACT</p>
+<section class="py-24 px-6">
+  <div class="max-w-3xl mx-auto text-center mb-16" data-reveal>
+    <p class="eyebrow mb-4">{eyebrow}</p>
     <h1 class="text-4xl md:text-5xl mb-4">{tr.contact.heading}</h1>
     <p class="brush-divider text-sm text-ink-soft mb-6"></p>
     <p class="text-base text-ink-soft">{tr.contact.lead}</p>
   </div>
 
   <div class="max-w-4xl mx-auto grid md:grid-cols-5 gap-12">
-    <aside class="md:col-span-2 space-y-8">
+    <aside class="md:col-span-2 space-y-8" data-reveal>
       <div>
-        <h2 class="text-xs uppercase tracking-widest text-gold-deep mb-3">{tr.contact.phoneHeading}</h2>
+        <p class="eyebrow mb-3">{tr.contact.phoneHeading}</p>
         <a
           href={`tel:${tr.contact.phoneNumber.replace(/\s/g, "")}`}
-          class="block text-2xl text-ink hover:text-sakura-deep transition-colors"
+          class="block text-2xl font-mono tabular tracking-wider text-ink hover:text-sakura-deep transition-colors"
         >
           {tr.contact.phoneNumber}
         </a>
@@ -31,20 +34,20 @@ const tr = t[locale];
       </div>
 
       <div class="border-t border-gold/20 pt-6">
-        <h2 class="text-xs uppercase tracking-widest text-gold-deep mb-3">{tr.about.accessHeading}</h2>
-        <p class="text-sm text-ink-soft leading-relaxed">{tr.about.accessAddress}</p>
+        <p class="eyebrow mb-3">{tr.about.accessHeading}</p>
+        <p class="font-mono text-sm tabular tracking-wider text-ink-soft leading-relaxed">{tr.about.accessAddress}</p>
       </div>
 
       <div class="border-t border-gold/20 pt-6">
-        <h2 class="text-xs uppercase tracking-widest text-gold-deep mb-3">{tr.about.hoursHeading}</h2>
+        <p class="eyebrow mb-3">{tr.about.hoursHeading}</p>
         <p class="text-sm text-ink-soft">{tr.home.hoursWeekday}</p>
         <p class="text-sm text-ink-soft mt-1">{tr.home.hoursWeekend}</p>
         <p class="text-sm text-sakura-deep mt-1">{tr.home.hoursClosed}</p>
       </div>
     </aside>
 
-    <form class="md:col-span-3 space-y-5" name="reservation" method="POST">
-      <h2 class="text-xs uppercase tracking-widest text-gold-deep mb-1">{tr.contact.formHeading}</h2>
+    <form class="md:col-span-3 space-y-5" name="reservation" method="POST" data-reveal data-reveal-delay="1">
+      <p class="eyebrow mb-1">{tr.contact.formHeading}</p>
 
       <div>
         <label for="name" class="block text-sm text-ink mb-1.5">{tr.contact.labels.name} <span class="text-sakura-deep">*</span></label>

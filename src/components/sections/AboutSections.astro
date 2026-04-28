@@ -13,17 +13,29 @@ const interiorImage =
 
 const mapEmbedSrc =
   "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3918.5!2d106.7322!3d10.8076!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjUgTmd1eeG7hW4gVsSDbiBIxrDhu59uZywgVGjhuqNvIMSQaeG7gW4!5e0!3m2!1sen!2s!4v1700000000000";
+
+const eyebrows = {
+  ja: { page: "ABOUT · 店舗案内", story: "STORY · 物語", hours: "HOURS · 営業時間", access: "ACCESS · 所在地", map: "MAP · 地図" },
+  vi: { page: "ABOUT · Về nhà hàng", story: "STORY · Câu chuyện", hours: "HOURS · Giờ mở cửa", access: "ACCESS · Địa chỉ", map: "MAP · Bản đồ" },
+  en: { page: "ABOUT", story: "STORY", hours: "HOURS", access: "ACCESS", map: "MAP" },
+}[locale];
+
+const accessLabels = {
+  ja: { address: "ADDRESS", landmark: "LANDMARK", parking: "PARKING", phone: "PHONE", seats: "SEATS" },
+  vi: { address: "ADDRESS", landmark: "LANDMARK", parking: "PARKING", phone: "PHONE", seats: "SEATS" },
+  en: { address: "ADDRESS", landmark: "LANDMARK", parking: "PARKING", phone: "PHONE", seats: "SEATS" },
+}[locale];
 ---
 
-<section class="py-20 px-6">
-  <div class="max-w-3xl mx-auto text-center mb-16">
-    <p class="text-sm tracking-[0.3em] text-gold-deep mb-4">ABOUT</p>
+<section class="py-24 px-6">
+  <div class="max-w-3xl mx-auto text-center mb-16" data-reveal>
+    <p class="eyebrow mb-4">{eyebrows.page}</p>
     <h1 class="text-4xl md:text-5xl mb-4">{tr.about.heading}</h1>
     <p class="brush-divider text-sm text-ink-soft"></p>
   </div>
 
   <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center mb-24">
-    <div class="aspect-[4/5] overflow-hidden bg-cream-soft">
+    <div class="aspect-[4/5] overflow-hidden bg-cream-soft" data-reveal>
       <img
         src={interiorImage}
         alt=""
@@ -33,25 +45,25 @@ const mapEmbedSrc =
         class="w-full h-full object-cover"
       />
     </div>
-    <div>
-      <p class="text-sm tracking-[0.3em] text-gold-deep mb-4">STORY</p>
+    <div data-reveal data-reveal-delay="1">
+      <p class="eyebrow mb-4">{eyebrows.story}</p>
       <h2 class="text-3xl mb-8">{tr.about.storyHeading}</h2>
       <p class="text-base text-ink leading-loose">{tr.about.storyBody}</p>
     </div>
   </div>
 </section>
 
-<section class="py-20 px-6 bg-cream-soft/40">
+<section class="py-24 px-6 bg-cream-soft/40">
   <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12">
-    <div>
-      <p class="text-sm tracking-[0.3em] text-gold-deep mb-4">HOURS</p>
+    <div data-reveal>
+      <p class="eyebrow mb-4">{eyebrows.hours}</p>
       <h2 class="text-3xl mb-8">{tr.about.hoursHeading}</h2>
       <table class="w-full text-base">
         <tbody>
           {tr.about.hoursTable.map((row) => (
             <tr class="border-b border-gold/10 last:border-0">
               <th class="py-3 text-left font-normal text-ink-soft pr-4 align-top whitespace-nowrap">{row.day}</th>
-              <td class={`py-3 ${row.time.includes(locale === "ja" ? "定休" : locale === "vi" ? "Nghỉ" : "Closed") ? "text-sakura-deep" : "text-ink"}`}>
+              <td class={`py-3 font-mono text-sm tabular tracking-wider ${row.time.includes(locale === "ja" ? "定休" : locale === "vi" ? "Nghỉ" : "Closed") ? "text-sakura-deep" : "text-ink"}`}>
                 {row.time}
               </td>
             </tr>
@@ -60,30 +72,30 @@ const mapEmbedSrc =
       </table>
     </div>
 
-    <div>
-      <p class="text-sm tracking-[0.3em] text-gold-deep mb-4">ACCESS</p>
+    <div data-reveal data-reveal-delay="1">
+      <p class="eyebrow mb-4">{eyebrows.access}</p>
       <h2 class="text-3xl mb-8">{tr.about.accessHeading}</h2>
-      <ul class="space-y-4 text-base text-ink-soft">
+      <ul class="space-y-5 text-base text-ink-soft">
         <li>
-          <span class="block text-xs uppercase tracking-widest text-gold-deep mb-1">Address</span>
-          {tr.about.accessAddress}
+          <span class="eyebrow block mb-1.5">{accessLabels.address}</span>
+          <span class="font-mono text-sm tabular tracking-wider text-ink">{tr.about.accessAddress}</span>
         </li>
         <li>
-          <span class="block text-xs uppercase tracking-widest text-gold-deep mb-1">Landmark</span>
+          <span class="eyebrow block mb-1.5">{accessLabels.landmark}</span>
           {tr.about.accessLandmark}
         </li>
         <li>
-          <span class="block text-xs uppercase tracking-widest text-gold-deep mb-1">Parking</span>
+          <span class="eyebrow block mb-1.5">{accessLabels.parking}</span>
           {tr.about.accessParking}
         </li>
         <li>
-          <span class="block text-xs uppercase tracking-widest text-gold-deep mb-1">Phone</span>
-          <a href={`tel:${tr.about.accessPhone.replace(/\s/g, "")}`} class="hover:text-sakura-deep transition-colors">
+          <span class="eyebrow block mb-1.5">{accessLabels.phone}</span>
+          <a href={`tel:${tr.about.accessPhone.replace(/\s/g, "")}`} class="font-mono text-sm tabular tracking-wider text-ink hover:text-sakura-deep transition-colors">
             {tr.about.accessPhone}
           </a>
         </li>
         <li>
-          <span class="block text-xs uppercase tracking-widest text-gold-deep mb-1">Seats</span>
+          <span class="eyebrow block mb-1.5">{accessLabels.seats}</span>
           {tr.about.accessSeats}
         </li>
       </ul>
@@ -91,9 +103,9 @@ const mapEmbedSrc =
   </div>
 </section>
 
-<section class="py-20 px-6">
-  <div class="max-w-5xl mx-auto">
-    <p class="text-sm tracking-[0.3em] text-gold-deep mb-4 text-center">MAP</p>
+<section class="py-24 px-6">
+  <div class="max-w-5xl mx-auto" data-reveal>
+    <p class="eyebrow mb-4 text-center">{eyebrows.map}</p>
     <h2 class="text-3xl mb-8 text-center">Thao Dien, District 2</h2>
     <div class="aspect-[16/9] bg-cream-soft border border-gold/20">
       <iframe
