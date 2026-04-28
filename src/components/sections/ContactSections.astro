@@ -1,0 +1,125 @@
+---
+import { t, type Locale } from "../../i18n/translations";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const tr = t[locale];
+---
+
+<section class="py-20 px-6">
+  <div class="max-w-3xl mx-auto text-center mb-16">
+    <p class="text-sm tracking-[0.3em] text-gold-deep mb-4">CONTACT</p>
+    <h1 class="text-4xl md:text-5xl mb-4">{tr.contact.heading}</h1>
+    <p class="brush-divider text-sm text-ink-soft mb-6"></p>
+    <p class="text-base text-ink-soft">{tr.contact.lead}</p>
+  </div>
+
+  <div class="max-w-4xl mx-auto grid md:grid-cols-5 gap-12">
+    <aside class="md:col-span-2 space-y-8">
+      <div>
+        <h2 class="text-xs uppercase tracking-widest text-gold-deep mb-3">{tr.contact.phoneHeading}</h2>
+        <a
+          href={`tel:${tr.contact.phoneNumber.replace(/\s/g, "")}`}
+          class="block text-2xl text-ink hover:text-sakura-deep transition-colors"
+        >
+          {tr.contact.phoneNumber}
+        </a>
+        <p class="text-xs text-ink-soft mt-2">{tr.contact.phoneNote}</p>
+      </div>
+
+      <div class="border-t border-gold/20 pt-6">
+        <h2 class="text-xs uppercase tracking-widest text-gold-deep mb-3">{tr.about.accessHeading}</h2>
+        <p class="text-sm text-ink-soft leading-relaxed">{tr.about.accessAddress}</p>
+      </div>
+
+      <div class="border-t border-gold/20 pt-6">
+        <h2 class="text-xs uppercase tracking-widest text-gold-deep mb-3">{tr.about.hoursHeading}</h2>
+        <p class="text-sm text-ink-soft">{tr.home.hoursWeekday}</p>
+        <p class="text-sm text-ink-soft mt-1">{tr.home.hoursWeekend}</p>
+        <p class="text-sm text-sakura-deep mt-1">{tr.home.hoursClosed}</p>
+      </div>
+    </aside>
+
+    <form class="md:col-span-3 space-y-5" name="reservation" method="POST">
+      <h2 class="text-xs uppercase tracking-widest text-gold-deep mb-1">{tr.contact.formHeading}</h2>
+
+      <div>
+        <label for="name" class="block text-sm text-ink mb-1.5">{tr.contact.labels.name} <span class="text-sakura-deep">*</span></label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          required
+          class="w-full px-4 py-2.5 border border-gold/30 bg-cream/40 focus:outline-none focus:border-sakura-deep transition-colors"
+        />
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label for="email" class="block text-sm text-ink mb-1.5">{tr.contact.labels.email} <span class="text-sakura-deep">*</span></label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            class="w-full px-4 py-2.5 border border-gold/30 bg-cream/40 focus:outline-none focus:border-sakura-deep transition-colors"
+          />
+        </div>
+        <div>
+          <label for="phone" class="block text-sm text-ink mb-1.5">{tr.contact.labels.phone}</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            class="w-full px-4 py-2.5 border border-gold/30 bg-cream/40 focus:outline-none focus:border-sakura-deep transition-colors"
+          />
+        </div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label for="date" class="block text-sm text-ink mb-1.5">{tr.contact.labels.date}</label>
+          <input
+            type="datetime-local"
+            id="date"
+            name="date"
+            class="w-full px-4 py-2.5 border border-gold/30 bg-cream/40 focus:outline-none focus:border-sakura-deep transition-colors"
+          />
+        </div>
+        <div>
+          <label for="people" class="block text-sm text-ink mb-1.5">{tr.contact.labels.people}</label>
+          <input
+            type="number"
+            id="people"
+            name="people"
+            min="1"
+            max="30"
+            class="w-full px-4 py-2.5 border border-gold/30 bg-cream/40 focus:outline-none focus:border-sakura-deep transition-colors"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label for="message" class="block text-sm text-ink mb-1.5">{tr.contact.labels.message}</label>
+        <textarea
+          id="message"
+          name="message"
+          rows="4"
+          class="w-full px-4 py-2.5 border border-gold/30 bg-cream/40 focus:outline-none focus:border-sakura-deep transition-colors"
+        ></textarea>
+      </div>
+
+      <button
+        type="submit"
+        class="w-full sm:w-auto px-10 py-3 bg-sakura-deep text-cream tracking-wider hover:bg-sakura transition-colors"
+      >
+        {tr.contact.labels.submit}
+      </button>
+
+      <p class="text-xs text-ink-soft pt-2">{tr.contact.privacy}</p>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,76 @@
+---
+import { t, type Locale } from "../../i18n/translations";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const tr = t[locale];
+
+const sections = [
+  {
+    category: tr.menu.categories.signature,
+    items: [
+      tr.menu.items.sakuraPho,
+      tr.menu.items.wagyuPho,
+    ],
+  },
+  {
+    category: tr.menu.categories.bun,
+    items: [
+      tr.menu.items.bunCha,
+    ],
+  },
+  {
+    category: tr.menu.categories.banhMi,
+    items: [
+      tr.menu.items.banhMiSakura,
+    ],
+  },
+  {
+    category: tr.menu.categories.side,
+    items: [
+      tr.menu.items.goiCuon,
+    ],
+  },
+  {
+    category: tr.menu.categories.drink,
+    items: [
+      tr.menu.items.cafeSua,
+    ],
+  },
+];
+---
+
+<section class="py-20 px-6">
+  <div class="max-w-3xl mx-auto text-center mb-16">
+    <p class="text-sm tracking-[0.3em] text-gold-deep mb-4">MENU</p>
+    <h1 class="text-4xl md:text-5xl mb-4">{tr.menu.heading}</h1>
+    <p class="brush-divider text-sm text-ink-soft mb-6"></p>
+    <p class="text-base text-ink-soft">{tr.menu.lead}</p>
+  </div>
+
+  <div class="max-w-3xl mx-auto space-y-16">
+    {sections.map((section) => (
+      <div>
+        <div class="flex items-baseline gap-4 mb-8 border-b border-gold/30 pb-3">
+          <h2 class="text-2xl text-ink">{section.category}</h2>
+          <span class="flex-1 border-t border-dotted border-gold/40"></span>
+        </div>
+
+        <ul class="space-y-7">
+          {section.items.map((item) => (
+            <li class="grid grid-cols-[1fr_auto] gap-x-6 gap-y-1.5">
+              <h3 class="text-lg text-ink leading-snug">{item.name}</h3>
+              <span class="text-base text-gold-deep tracking-wider whitespace-nowrap">{item.price}</span>
+              <p class="col-span-2 text-sm text-ink-soft leading-relaxed">{item.desc}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+
+  <p class="max-w-3xl mx-auto mt-16 text-xs text-ink-soft text-center">{tr.menu.note}</p>
+</section>

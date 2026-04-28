@@ -1,0 +1,65 @@
+---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { t, type Locale } from "../i18n/translations";
+
+interface Props {
+  locale: Locale;
+  page: "home" | "menu" | "about" | "contact";
+  description?: string;
+}
+
+const { locale, page, description } = Astro.props;
+const tr = t[locale];
+
+const titleMap: Record<Props["page"], string> = {
+  home: tr.siteName,
+  menu: `${tr.menu.heading} | ${tr.siteName}`,
+  about: `${tr.about.heading} | ${tr.siteName}`,
+  contact: `${tr.contact.heading} | ${tr.siteName}`,
+};
+
+const descMap: Record<Props["page"], string> = {
+  home: tr.home.heroLead,
+  menu: tr.menu.lead,
+  about: tr.about.storyBody.slice(0, 140),
+  contact: tr.contact.lead,
+};
+
+const finalTitle = titleMap[page];
+const finalDescription = description ?? descMap[page];
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{finalTitle}</title>
+    <meta name="description" content={finalDescription} />
+    <meta property="og:title" content={finalTitle} />
+    <meta property="og:description" content={finalDescription} />
+    <meta property="og:type" content="restaurant.restaurant" />
+    <meta property="og:locale" content={locale === "ja" ? "ja_JP" : locale === "vi" ? "vi_VN" : "en_US"} />
+    <link rel="alternate" hreflang="ja" href="/" />
+    <link rel="alternate" hreflang="vi" href="/vi/" />
+    <link rel="alternate" hreflang="en" href="/en/" />
+    <link rel="alternate" hreflang="x-default" href="/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&family=Be+Vietnam+Pro:wght@300;400;500;600&family=Cormorant+Garamond:wght@400;500;600&display=swap"
+    />
+  </head>
+  <body class="washi-bg min-h-screen flex flex-col">
+    <Header locale={locale} page={page} />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer locale={locale} />
+  </body>
+</html>

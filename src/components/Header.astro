@@ -1,0 +1,83 @@
+---
+import { t, locales, localeNames, type Locale } from "../i18n/translations";
+
+interface Props {
+  locale: Locale;
+  page: "home" | "menu" | "about" | "contact";
+}
+
+const { locale, page } = Astro.props;
+const tr = t[locale];
+
+const prefix = locale === "ja" ? "" : `/${locale}`;
+
+const navItems = [
+  { key: "home", label: tr.nav.home, href: `${prefix}/` },
+  { key: "menu", label: tr.nav.menu, href: `${prefix}/menu` },
+  { key: "about", label: tr.nav.about, href: `${prefix}/about` },
+  { key: "contact", label: tr.nav.contact, href: `${prefix}/contact` },
+] as const;
+
+const switchPaths: Record<Locale, Record<string, string>> = {
+  ja: { home: "/", menu: "/menu", about: "/about", contact: "/contact" },
+  vi: { home: "/vi/", menu: "/vi/menu", about: "/vi/about", contact: "/vi/contact" },
+  en: { home: "/en/", menu: "/en/menu", about: "/en/about", contact: "/en/contact" },
+};
+---
+
+<header class="sticky top-0 z-50 backdrop-blur-md bg-cream/80 border-b border-gold/20">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
+    <a href={`${prefix}/`} class="flex items-center gap-3 group">
+      <span aria-hidden="true" class="text-2xl text-sakura-deep group-hover:rotate-12 transition-transform duration-500">❀</span>
+      <span class="font-serif-jp text-xl tracking-wider text-ink">{tr.siteName}</span>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-1" aria-label="Primary">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class={`px-4 py-2 text-sm tracking-wide transition-colors ${
+            item.key === page
+              ? "text-sakura-deep border-b border-sakura-deep"
+              : "text-ink-soft hover:text-sakura-deep"
+          }`}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-1 text-xs">
+      {locales.map((loc, i) => (
+        <>
+          {i > 0 && <span class="text-gold/40">/</span>}
+          <a
+            href={switchPaths[loc][page]}
+            class={`px-2 py-1 transition-colors ${
+              loc === locale ? "text-sakura-deep font-medium" : "text-ink-soft hover:text-sakura-deep"
+            }`}
+            aria-label={`Switch to ${localeNames[loc]}`}
+            hreflang={loc}
+          >
+            {loc === "ja" ? "日本語" : loc === "vi" ? "VI" : "EN"}
+          </a>
+        </>
+      ))}
+    </div>
+  </div>
+
+  <nav class="md:hidden border-t border-gold/10 bg-cream/60" aria-label="Mobile">
+    <div class="max-w-6xl mx-auto px-2 py-1 flex items-center justify-around">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class={`flex-1 text-center px-2 py-2 text-xs tracking-wide ${
+            item.key === page ? "text-sakura-deep" : "text-ink-soft"
+          }`}
+        >
+          {item.label}
+        </a>
+      ))}
+    </div>
+  </nav>
+</header>

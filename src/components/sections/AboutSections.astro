@@ -1,0 +1,108 @@
+---
+import { t, type Locale } from "../../i18n/translations";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const tr = t[locale];
+
+const interiorImage =
+  "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80";
+
+const mapEmbedSrc =
+  "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3918.5!2d106.7322!3d10.8076!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjUgTmd1eeG7hW4gVsSDbiBIxrDhu59uZywgVGjhuqNvIMSQaeG7gW4!5e0!3m2!1sen!2s!4v1700000000000";
+---
+
+<section class="py-20 px-6">
+  <div class="max-w-3xl mx-auto text-center mb-16">
+    <p class="text-sm tracking-[0.3em] text-gold-deep mb-4">ABOUT</p>
+    <h1 class="text-4xl md:text-5xl mb-4">{tr.about.heading}</h1>
+    <p class="brush-divider text-sm text-ink-soft"></p>
+  </div>
+
+  <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center mb-24">
+    <div class="aspect-[4/5] overflow-hidden bg-cream-soft">
+      <img
+        src={interiorImage}
+        alt=""
+        loading="lazy"
+        width="900"
+        height="1125"
+        class="w-full h-full object-cover"
+      />
+    </div>
+    <div>
+      <p class="text-sm tracking-[0.3em] text-gold-deep mb-4">STORY</p>
+      <h2 class="text-3xl mb-8">{tr.about.storyHeading}</h2>
+      <p class="text-base text-ink leading-loose">{tr.about.storyBody}</p>
+    </div>
+  </div>
+</section>
+
+<section class="py-20 px-6 bg-cream-soft/40">
+  <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12">
+    <div>
+      <p class="text-sm tracking-[0.3em] text-gold-deep mb-4">HOURS</p>
+      <h2 class="text-3xl mb-8">{tr.about.hoursHeading}</h2>
+      <table class="w-full text-base">
+        <tbody>
+          {tr.about.hoursTable.map((row) => (
+            <tr class="border-b border-gold/10 last:border-0">
+              <th class="py-3 text-left font-normal text-ink-soft pr-4 align-top whitespace-nowrap">{row.day}</th>
+              <td class={`py-3 ${row.time.includes(locale === "ja" ? "定休" : locale === "vi" ? "Nghỉ" : "Closed") ? "text-sakura-deep" : "text-ink"}`}>
+                {row.time}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <div>
+      <p class="text-sm tracking-[0.3em] text-gold-deep mb-4">ACCESS</p>
+      <h2 class="text-3xl mb-8">{tr.about.accessHeading}</h2>
+      <ul class="space-y-4 text-base text-ink-soft">
+        <li>
+          <span class="block text-xs uppercase tracking-widest text-gold-deep mb-1">Address</span>
+          {tr.about.accessAddress}
+        </li>
+        <li>
+          <span class="block text-xs uppercase tracking-widest text-gold-deep mb-1">Landmark</span>
+          {tr.about.accessLandmark}
+        </li>
+        <li>
+          <span class="block text-xs uppercase tracking-widest text-gold-deep mb-1">Parking</span>
+          {tr.about.accessParking}
+        </li>
+        <li>
+          <span class="block text-xs uppercase tracking-widest text-gold-deep mb-1">Phone</span>
+          <a href={`tel:${tr.about.accessPhone.replace(/\s/g, "")}`} class="hover:text-sakura-deep transition-colors">
+            {tr.about.accessPhone}
+          </a>
+        </li>
+        <li>
+          <span class="block text-xs uppercase tracking-widest text-gold-deep mb-1">Seats</span>
+          {tr.about.accessSeats}
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="py-20 px-6">
+  <div class="max-w-5xl mx-auto">
+    <p class="text-sm tracking-[0.3em] text-gold-deep mb-4 text-center">MAP</p>
+    <h2 class="text-3xl mb-8 text-center">Thao Dien, District 2</h2>
+    <div class="aspect-[16/9] bg-cream-soft border border-gold/20">
+      <iframe
+        title="Map of Sakura Phở"
+        src={mapEmbedSrc}
+        class="w-full h-full"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+  </div>
+</section>

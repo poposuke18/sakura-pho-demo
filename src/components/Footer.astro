@@ -1,0 +1,54 @@
+---
+import { t, type Locale } from "../i18n/translations";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const tr = t[locale];
+const prefix = locale === "ja" ? "" : `/${locale}`;
+---
+
+<footer class="mt-24 border-t border-gold/20 bg-cream-soft/50">
+  <div class="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-3 gap-8 text-sm text-ink-soft">
+    <div>
+      <div class="flex items-center gap-2 mb-3">
+        <span aria-hidden="true" class="text-xl text-sakura-deep">❀</span>
+        <span class="font-serif-jp text-lg tracking-wider text-ink">{tr.siteName}</span>
+      </div>
+      <p class="text-xs leading-relaxed">{tr.footer.tagline}</p>
+    </div>
+
+    <div>
+      <h3 class="text-xs uppercase tracking-widest text-gold-deep mb-3">
+        {tr.about.accessHeading}
+      </h3>
+      <p class="text-xs leading-relaxed">{tr.about.accessAddress}</p>
+      <p class="text-xs mt-2">
+        <a href={`tel:${tr.about.accessPhone.replace(/\s/g, "")}`} class="hover:text-sakura-deep transition-colors">
+          {tr.about.accessPhone}
+        </a>
+      </p>
+    </div>
+
+    <div>
+      <h3 class="text-xs uppercase tracking-widest text-gold-deep mb-3">
+        {locale === "ja" ? "ナビゲーション" : locale === "vi" ? "Liên kết" : "Links"}
+      </h3>
+      <ul class="space-y-1.5 text-xs">
+        <li><a href={`${prefix}/`} class="hover:text-sakura-deep transition-colors">{tr.nav.home}</a></li>
+        <li><a href={`${prefix}/menu`} class="hover:text-sakura-deep transition-colors">{tr.nav.menu}</a></li>
+        <li><a href={`${prefix}/about`} class="hover:text-sakura-deep transition-colors">{tr.nav.about}</a></li>
+        <li><a href={`${prefix}/contact`} class="hover:text-sakura-deep transition-colors">{tr.nav.contact}</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-gold/10">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between text-xs text-ink-soft">
+      <p>{tr.footer.copyright}</p>
+      <p class="text-gold-deep">{tr.footer.sns}</p>
+    </div>
+  </div>
+</footer>

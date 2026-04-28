@@ -1,0 +1,157 @@
+---
+import { t, type Locale } from "../../i18n/translations";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const tr = t[locale];
+const prefix = locale === "ja" ? "" : `/${locale}`;
+
+const heroImage =
+  "https://images.unsplash.com/photo-1576577445504-6af96477db52?auto=format&fit=crop&w=1600&q=80";
+
+const signatureItems = [
+  {
+    name: tr.menu.items.sakuraPho.name,
+    desc: tr.menu.items.sakuraPho.desc,
+    price: tr.menu.items.sakuraPho.price,
+    image: "https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    name: tr.menu.items.bunCha.name,
+    desc: tr.menu.items.bunCha.desc,
+    price: tr.menu.items.bunCha.price,
+    image: "https://images.unsplash.com/photo-1583224964978-2257b960c3d3?auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    name: tr.menu.items.banhMiSakura.name,
+    desc: tr.menu.items.banhMiSakura.desc,
+    price: tr.menu.items.banhMiSakura.price,
+    image: "https://images.unsplash.com/photo-1600335895229-6e75511892c8?auto=format&fit=crop&w=800&q=80",
+  },
+];
+---
+
+<section class="relative min-h-[88vh] flex items-center overflow-hidden">
+  <div class="absolute inset-0">
+    <img
+      src={heroImage}
+      alt=""
+      class="w-full h-full object-cover"
+      fetchpriority="high"
+      loading="eager"
+      width="1600"
+      height="900"
+    />
+    <div class="absolute inset-0 bg-gradient-to-r from-ink/70 via-ink/40 to-transparent"></div>
+  </div>
+
+  <div class="relative z-10 max-w-6xl mx-auto px-6 py-20 w-full">
+    <div class="max-w-2xl text-cream fade-in">
+      <p class="text-sm tracking-[0.3em] text-sakura mb-6">SAKURA PHỞ</p>
+      <h1 class="text-5xl md:text-7xl font-light tracking-wider mb-6 leading-tight">
+        {tr.home.heroTitle}
+      </h1>
+      <p class="text-xl md:text-2xl text-cream-soft mb-4 font-light">{tr.home.heroSubtitle}</p>
+      <p class="text-base text-cream-soft/80 mb-10 max-w-xl leading-relaxed">{tr.home.heroLead}</p>
+      <div class="flex flex-wrap gap-4">
+        <a
+          href={`${prefix}/menu`}
+          class="inline-block px-8 py-3 bg-sakura-deep text-cream tracking-wider hover:bg-sakura transition-colors"
+        >
+          {tr.home.heroCta}
+        </a>
+        <a
+          href={`${prefix}/contact`}
+          class="inline-block px-8 py-3 border border-cream/60 text-cream tracking-wider hover:bg-cream hover:text-ink transition-colors"
+        >
+          {tr.home.heroCtaSecondary}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-24 px-6">
+  <div class="max-w-3xl mx-auto text-center">
+    <p class="text-sm tracking-[0.3em] text-gold-deep mb-4">CONCEPT</p>
+    <h2 class="text-3xl md:text-4xl mb-2">{tr.home.conceptHeading}</h2>
+    <p class="brush-divider text-sm text-ink-soft mb-10"></p>
+    <p class="text-lg text-ink mb-6 font-medium">{tr.home.conceptLead}</p>
+    <p class="text-base text-ink-soft leading-loose max-w-2xl mx-auto">
+      {tr.home.conceptBody}
+    </p>
+  </div>
+</section>
+
+<section class="py-24 px-6 bg-cream-soft/40">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-16">
+      <p class="text-sm tracking-[0.3em] text-gold-deep mb-4">SIGNATURE</p>
+      <h2 class="text-3xl md:text-4xl mb-2">{tr.home.signatureHeading}</h2>
+      <p class="text-sm text-ink-soft">{tr.home.signatureLead}</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      {signatureItems.map((item) => (
+        <article class="group">
+          <div class="aspect-[4/5] overflow-hidden mb-5 bg-cream-soft">
+            <img
+              src={item.image}
+              alt={item.name}
+              loading="lazy"
+              width="800"
+              height="1000"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            />
+          </div>
+          <div class="px-1">
+            <div class="flex items-baseline justify-between gap-3 mb-2">
+              <h3 class="text-lg leading-snug">{item.name}</h3>
+              <span class="text-sm text-gold-deep tracking-wider whitespace-nowrap">{item.price}</span>
+            </div>
+            <p class="text-sm text-ink-soft leading-relaxed">{item.desc}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="text-center mt-16">
+      <a
+        href={`${prefix}/menu`}
+        class="inline-block px-8 py-3 border border-ink text-ink tracking-wider hover:bg-ink hover:text-cream transition-colors"
+      >
+        {tr.nav.menu} →
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="py-24 px-6">
+  <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-start">
+    <div>
+      <p class="text-sm tracking-[0.3em] text-gold-deep mb-4">HOURS</p>
+      <h2 class="text-3xl mb-6">{tr.home.hoursHeading}</h2>
+      <ul class="space-y-3 text-base text-ink-soft">
+        <li class="flex gap-3"><span class="text-gold-deep">·</span>{tr.home.hoursWeekday}</li>
+        <li class="flex gap-3"><span class="text-gold-deep">·</span>{tr.home.hoursWeekend}</li>
+        <li class="flex gap-3"><span class="text-sakura-deep">·</span>{tr.home.hoursClosed}</li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="text-sm tracking-[0.3em] text-gold-deep mb-4">ACCESS</p>
+      <h2 class="text-3xl mb-6">{tr.home.accessHeading}</h2>
+      <p class="text-base text-ink mb-3">{tr.home.accessAddress}</p>
+      <p class="text-sm text-ink-soft mb-6 leading-relaxed">{tr.home.accessNote}</p>
+      <a
+        href={`${prefix}/contact`}
+        class="inline-block px-6 py-2.5 bg-sakura-deep text-cream text-sm tracking-wider hover:bg-sakura transition-colors"
+      >
+        {tr.home.reserveCta}
+      </a>
+    </div>
+  </div>
+</section>

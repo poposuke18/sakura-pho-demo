@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #faf7f3;
+  --color-cream-soft: #f3ede4;
+  --color-ink: #1a1714;
+  --color-ink-soft: #4a443d;
+  --color-sakura: #e8a3a3;
+  --color-sakura-deep: #d97777;
+  --color-gold: #c4a76d;
+  --color-gold-deep: #a3884d;
+  --color-forest: #3a5a40;
+  --color-forest-deep: #2a4530;
+
+  --font-serif-jp: "Noto Serif JP", "Yu Mincho", serif;
+  --font-sans-jp: "Noto Sans JP", "Yu Gothic", sans-serif;
+  --font-sans-vi: "Be Vietnam Pro", "Segoe UI", sans-serif;
+  --font-display: "Cormorant Garamond", "Noto Serif JP", serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--color-cream);
+  color: var(--color-ink);
+}
+
+body {
+  font-family: var(--font-sans-jp);
+  font-feature-settings: "palt";
+  letter-spacing: 0.02em;
+  line-height: 1.7;
+}
+
+[lang="vi"] body {
+  font-family: var(--font-sans-vi);
+}
+
+[lang="en"] body {
+  font-family: var(--font-display);
+  letter-spacing: 0.01em;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-serif-jp);
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+
+[lang="en"] h1, [lang="en"] h2, [lang="en"] h3, [lang="en"] h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+.brush-divider {
+  position: relative;
+  display: inline-block;
+}
+
+.brush-divider::before,
+.brush-divider::after {
+  content: "";
+  display: inline-block;
+  width: 2.5rem;
+  height: 1px;
+  background: var(--color-gold);
+  vertical-align: middle;
+  margin: 0 1rem;
+}
+
+.washi-bg {
+  background-color: var(--color-cream);
+  background-image:
+    radial-gradient(circle at 25% 25%, rgba(196, 167, 109, 0.04) 0%, transparent 40%),
+    radial-gradient(circle at 75% 75%, rgba(232, 163, 163, 0.04) 0%, transparent 40%);
+}
+
+.fade-in {
+  animation: fadeUp 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
