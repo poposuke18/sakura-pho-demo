@@ -3,6 +3,12 @@
 > **AI HP営業販売プロジェクト**のデモサイト。
 > 営業時に「こういうサイトを作れます」と提示するための架空店舗のリファレンス実装。
 
+## Live
+
+- **本番**: https://sakura-pho-demo.vercel.app
+- GitHub: https://github.com/poposuke18/sakura-pho-demo
+- Vercel ⇄ GitHub 自動デプロイ連携済み（mainへのpushで自動再デプロイ）
+
 ホーチミン市タオディエンにあるという設定の、和の美意識を取り入れた本格ベトナム料理店「桜フォー（Sakura Phở）」の三言語対応サイト。
 
 ## Stack
