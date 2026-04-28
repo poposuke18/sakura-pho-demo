@@ -32,6 +32,29 @@ const signatureItems = [
     image: "https://images.unsplash.com/photo-1600335895229-6e75511892c8?auto=format&fit=crop&w=800&q=80",
   },
 ];
+
+const galleryImages = [
+  {
+    src: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80",
+    span: "row-span-2",
+    alt: locale === "ja" ? "店内の様子" : locale === "vi" ? "Không gian quán" : "Dining room",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1569058242253-92c6ddef1497?auto=format&fit=crop&w=600&q=80",
+    span: "",
+    alt: locale === "ja" ? "生春巻き" : locale === "vi" ? "Gỏi cuốn" : "Spring rolls",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1497635701260-cf7eb96f72ae?auto=format&fit=crop&w=600&q=80",
+    span: "",
+    alt: locale === "ja" ? "ベトナムコーヒー" : locale === "vi" ? "Cà phê" : "Coffee",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=900&q=80",
+    span: "col-span-2",
+    alt: locale === "ja" ? "テラス席" : locale === "vi" ? "Sân thượng" : "Terrace",
+  },
+];
 ---
 
 <section class="relative min-h-[88vh] flex items-center overflow-hidden">
@@ -75,7 +98,7 @@ const signatureItems = [
 </section>
 
 <section class="py-24 px-6">
-  <div class="max-w-3xl mx-auto text-center">
+  <div class="max-w-3xl mx-auto text-center" data-reveal>
     <p class="text-sm tracking-[0.3em] text-gold-deep mb-4">CONCEPT</p>
     <h2 class="text-3xl md:text-4xl mb-2">{tr.home.conceptHeading}</h2>
     <p class="brush-divider text-sm text-ink-soft mb-10"></p>
@@ -88,15 +111,15 @@ const signatureItems = [
 
 <section class="py-24 px-6 bg-cream-soft/40">
   <div class="max-w-6xl mx-auto">
-    <div class="text-center mb-16">
+    <div class="text-center mb-16" data-reveal>
       <p class="text-sm tracking-[0.3em] text-gold-deep mb-4">SIGNATURE</p>
       <h2 class="text-3xl md:text-4xl mb-2">{tr.home.signatureHeading}</h2>
       <p class="text-sm text-ink-soft">{tr.home.signatureLead}</p>
     </div>
 
     <div class="grid md:grid-cols-3 gap-8">
-      {signatureItems.map((item) => (
-        <article class="group">
+      {signatureItems.map((item, i) => (
+        <article class="group" data-reveal data-reveal-delay={i + 1}>
           <div class="aspect-[4/5] overflow-hidden mb-5 bg-cream-soft">
             <img
               src={item.image}
@@ -118,7 +141,7 @@ const signatureItems = [
       ))}
     </div>
 
-    <div class="text-center mt-16">
+    <div class="text-center mt-16" data-reveal>
       <a
         href={`${prefix}/menu`}
         class="inline-block px-8 py-3 border border-ink text-ink tracking-wider hover:bg-ink hover:text-cream transition-colors"
@@ -130,8 +153,31 @@ const signatureItems = [
 </section>
 
 <section class="py-24 px-6">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-12" data-reveal>
+      <p class="text-sm tracking-[0.3em] text-gold-deep mb-4">GALLERY</p>
+      <h2 class="text-3xl md:text-4xl mb-2">{tr.home.galleryHeading}</h2>
+      <p class="text-sm text-ink-soft">{tr.home.galleryLead}</p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 grid-rows-2 gap-3 md:gap-4 aspect-[3/2]" data-reveal>
+      {galleryImages.map((img) => (
+        <figure class={`overflow-hidden bg-cream-soft ${img.span}`}>
+          <img
+            src={img.src}
+            alt={img.alt}
+            loading="lazy"
+            class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+          />
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="py-24 px-6 bg-cream-soft/40">
   <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-start">
-    <div>
+    <div data-reveal>
       <p class="text-sm tracking-[0.3em] text-gold-deep mb-4">HOURS</p>
       <h2 class="text-3xl mb-6">{tr.home.hoursHeading}</h2>
       <ul class="space-y-3 text-base text-ink-soft">
@@ -141,7 +187,7 @@ const signatureItems = [
       </ul>
     </div>
 
-    <div>
+    <div data-reveal data-reveal-delay="1">
       <p class="text-sm tracking-[0.3em] text-gold-deep mb-4">ACCESS</p>
       <h2 class="text-3xl mb-6">{tr.home.accessHeading}</h2>
       <p class="text-base text-ink mb-3">{tr.home.accessAddress}</p>

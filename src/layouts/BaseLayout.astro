@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import RestaurantSchema from "../components/RestaurantSchema.astro";
 import { t, type Locale } from "../i18n/translations";
 
 interface Props {
@@ -29,6 +30,9 @@ const descMap: Record<Props["page"], string> = {
 
 const finalTitle = titleMap[page];
 const finalDescription = description ?? descMap[page];
+
+const skipLabel =
+  locale === "ja" ? "本文へスキップ" : locale === "vi" ? "Bỏ qua đến nội dung" : "Skip to main content";
 ---
 
 <!doctype html>
@@ -36,30 +40,56 @@ const finalDescription = description ?? descMap[page];
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#faf7f3" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{finalTitle}</title>
     <meta name="description" content={finalDescription} />
+    <meta property="og:site_name" content={tr.siteName} />
     <meta property="og:title" content={finalTitle} />
     <meta property="og:description" content={finalDescription} />
     <meta property="og:type" content="restaurant.restaurant" />
     <meta property="og:locale" content={locale === "ja" ? "ja_JP" : locale === "vi" ? "vi_VN" : "en_US"} />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="alternate" hreflang="ja" href="/" />
     <link rel="alternate" hreflang="vi" href="/vi/" />
     <link rel="alternate" hreflang="en" href="/en/" />
     <link rel="alternate" hreflang="x-default" href="/" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&family=Be+Vietnam+Pro:wght@300;400;500;600&family=Cormorant+Garamond:wght@400;500;600&display=swap"
     />
+    <RestaurantSchema locale={locale} />
   </head>
   <body class="washi-bg min-h-screen flex flex-col">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:bg-ink focus:text-cream focus:rounded"
+    >
+      {skipLabel}
+    </a>
     <Header locale={locale} page={page} />
-    <main class="flex-1">
+    <main id="main" class="flex-1">
       <slot />
     </main>
     <Footer locale={locale} />
+
+    <script is:inline>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { rootMargin: "-50px" }
+      );
+      document.querySelectorAll("[data-reveal]").forEach((el) => observer.observe(el));
+    </script>
   </body>
 </html>

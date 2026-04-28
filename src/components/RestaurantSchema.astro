@@ -1,0 +1,63 @@
+---
+import { t, type Locale } from "../i18n/translations";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const tr = t[locale];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": tr.siteName,
+  "alternateName": "Sakura Phở",
+  "description": tr.home.heroLead,
+  "url": Astro.site?.toString() ?? "https://sakura-pho-demo.vercel.app",
+  "image": "https://images.unsplash.com/photo-1576577445504-6af96477db52?auto=format&fit=crop&w=1600&q=80",
+  "servesCuisine": ["Vietnamese", "Japanese-Vietnamese fusion"],
+  "priceRange": "$$",
+  "telephone": "+842812345678",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "25 Nguyễn Văn Hưởng",
+    "addressLocality": "Thảo Điền, Quận 2",
+    "addressRegion": "Ho Chi Minh City",
+    "addressCountry": "VN",
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 10.8076,
+    "longitude": 106.7322,
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Wednesday", "Thursday", "Friday"],
+      "opens": "11:00",
+      "closes": "14:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Wednesday", "Thursday", "Friday"],
+      "opens": "17:30",
+      "closes": "22:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Saturday", "Sunday"],
+      "opens": "11:00",
+      "closes": "22:00",
+    },
+  ],
+  "acceptsReservations": "True",
+  "menu": "/menu",
+  "sameAs": [
+    "https://www.instagram.com/sakurapho",
+    "https://www.facebook.com/sakurapho",
+  ],
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

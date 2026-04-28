@@ -38,6 +38,8 @@ export const t = {
       accessAddress: "ホーチミン市2区 タオディエン 25 Nguyễn Văn Hưởng",
       accessNote: "日系スーパーから徒歩3分。専用駐車場2台分あり。",
       reserveCta: "席を予約する",
+      galleryHeading: "店内の風景",
+      galleryLead: "静けさと、湯気の温度",
     },
     menu: {
       heading: "お品書き",
@@ -160,6 +162,8 @@ export const t = {
       accessAddress: "25 Nguyễn Văn Hưởng, Thảo Điền, Quận 2, TP.HCM",
       accessNote: "Cách siêu thị Nhật 3 phút đi bộ. Có chỗ đậu 2 ô tô.",
       reserveCta: "Đặt bàn",
+      galleryHeading: "Không gian quán",
+      galleryLead: "Sự tĩnh lặng, và hơi ấm của nồi nước dùng",
     },
     menu: {
       heading: "Thực đơn",
@@ -282,6 +286,8 @@ export const t = {
       accessAddress: "25 Nguyễn Văn Hưởng, Thao Dien, District 2, Ho Chi Minh City",
       accessNote: "Three minutes' walk from AKURUHI Mart. Two private parking spaces available.",
       reserveCta: "Reserve a Table",
+      galleryHeading: "Inside the room",
+      galleryLead: "Quiet, and the warmth of rising steam",
     },
     menu: {
       heading: "Menu",

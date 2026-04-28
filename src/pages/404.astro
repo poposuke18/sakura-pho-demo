@@ -1,0 +1,25 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout locale="ja" page="home" description="Page not found">
+  <section class="min-h-[70vh] flex items-center justify-center px-6 py-24">
+    <div class="text-center max-w-lg" data-reveal>
+      <p class="text-sm tracking-[0.3em] text-gold-deep mb-4">404</p>
+      <h1 class="text-4xl md:text-5xl mb-4">迷い道に咲く一輪</h1>
+      <p class="brush-divider text-sm text-ink-soft mb-8"></p>
+      <p class="text-base text-ink-soft mb-2">
+        お探しのページは見つかりませんでした。
+      </p>
+      <p class="text-sm text-ink-soft mb-10">
+        The page you were looking for could not be found.
+      </p>
+      <a
+        href="/"
+        class="inline-block px-8 py-3 bg-sakura-deep text-cream tracking-wider hover:bg-sakura transition-colors"
+      >
+        トップへ戻る / Return Home
+      </a>
+    </div>
+  </section>
+</BaseLayout>
